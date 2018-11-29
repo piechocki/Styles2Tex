@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace Styles2Tex.Properties {
+    using System;
     
     
     /// <summary>
@@ -18,7 +19,7 @@ namespace Styles2Tex.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -56,6 +57,46 @@ namespace Styles2Tex.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconfinder_Gnome_Dialog_Question_64_55570 {
+            get {
+                object obj = ResourceManager.GetObject("iconfinder_Gnome-Dialog-Question-64_55570", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconfinder_Gnome_Emblem_Documents_64_55597__1_ {
+            get {
+                object obj = ResourceManager.GetObject("iconfinder_Gnome-Emblem-Documents-64_55597 (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconfinder_Gnome_Preferences_System_64_55738 {
+            get {
+                object obj = ResourceManager.GetObject("iconfinder_Gnome-Preferences-System-64_55738", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconfinder_Gnome_Text_X_Generic_64_55767 {
+            get {
+                object obj = ResourceManager.GetObject("iconfinder_Gnome-Text-X-Generic-64_55767", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
