@@ -213,6 +213,7 @@
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
+    <None Include="Styles2Tex_TemporaryKey.pfx" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.cs</DependentUpon>
     </None>
@@ -247,7 +248,7 @@
     <ManifestKeyFile>Styles2Tex_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>458F8288FEE1925BBF3BA4E2E12984024986A78A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>EB99F4A3FC8CB5FEEC59E17AB0E2FDFC855A768C</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

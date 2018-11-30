@@ -16,7 +16,6 @@ namespace Styles2Tex
         {
             // initialise word app and active document
             word = Globals.ThisAddIn.Application;
-            doc = word.ActiveDocument;
 
             // load config
             sp = new StylesParser();
@@ -25,6 +24,7 @@ namespace Styles2Tex
 
         private void btn_new_simple_Click(object sender, RibbonControlEventArgs e)
         {
+            doc = word.ActiveDocument;
             sp.convert(doc);
         }
 
