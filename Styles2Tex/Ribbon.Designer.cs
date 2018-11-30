@@ -38,7 +38,11 @@
             this.grp_styles2tex = this.Factory.CreateRibbonGroup();
             this.btn_new_simple = this.Factory.CreateRibbonButton();
             this.btn_new_multiple = this.Factory.CreateRibbonButton();
-            this.btn_settings = this.Factory.CreateRibbonButton();
+            this.btn_styles = this.Factory.CreateRibbonButton();
+            this.btn_save_directory = this.Factory.CreateRibbonButton();
+            this.btn_overwrite = this.Factory.CreateRibbonButton();
+            this.btn_encoding = this.Factory.CreateRibbonButton();
+            this.btn_more_settings = this.Factory.CreateRibbonButton();
             this.btn_about = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.grp_styles2tex.SuspendLayout();
@@ -55,7 +59,11 @@
             // 
             this.grp_styles2tex.Items.Add(this.btn_new_simple);
             this.grp_styles2tex.Items.Add(this.btn_new_multiple);
-            this.grp_styles2tex.Items.Add(this.btn_settings);
+            this.grp_styles2tex.Items.Add(this.btn_styles);
+            this.grp_styles2tex.Items.Add(this.btn_save_directory);
+            this.grp_styles2tex.Items.Add(this.btn_overwrite);
+            this.grp_styles2tex.Items.Add(this.btn_encoding);
+            this.grp_styles2tex.Items.Add(this.btn_more_settings);
             this.grp_styles2tex.Items.Add(this.btn_about);
             this.grp_styles2tex.Label = "Styles2Tex";
             this.grp_styles2tex.Name = "grp_styles2tex";
@@ -63,7 +71,7 @@
             // btn_new_simple
             // 
             this.btn_new_simple.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btn_new_simple.Image = global::Styles2Tex.Properties.Resources.iconfinder_Gnome_Text_X_Generic_64_55767;
+            this.btn_new_simple.Image = global::Styles2Tex.Properties.Resources.icons8_dokument_100;
             this.btn_new_simple.Label = "New tex file";
             this.btn_new_simple.Name = "btn_new_simple";
             this.btn_new_simple.ShowImage = true;
@@ -72,23 +80,52 @@
             // btn_new_multiple
             // 
             this.btn_new_multiple.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btn_new_multiple.Image = global::Styles2Tex.Properties.Resources.iconfinder_Gnome_Emblem_Documents_64_55597__1_;
+            this.btn_new_multiple.Image = global::Styles2Tex.Properties.Resources.icons8_dokumente_100;
             this.btn_new_multiple.Label = "New tex files";
             this.btn_new_multiple.Name = "btn_new_multiple";
             this.btn_new_multiple.ShowImage = true;
             this.btn_new_multiple.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_new_multiple_Click);
             // 
-            // btn_settings
+            // btn_styles
             // 
-            this.btn_settings.Image = global::Styles2Tex.Properties.Resources.iconfinder_Gnome_Preferences_System_64_55738;
-            this.btn_settings.Label = "Settings";
-            this.btn_settings.Name = "btn_settings";
-            this.btn_settings.ShowImage = true;
-            this.btn_settings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_settings_Click);
+            this.btn_styles.Image = global::Styles2Tex.Properties.Resources.icons8_kopfzeile_1_80;
+            this.btn_styles.Label = "Styles";
+            this.btn_styles.Name = "btn_styles";
+            this.btn_styles.ShowImage = true;
+            // 
+            // btn_save_directory
+            // 
+            this.btn_save_directory.Image = global::Styles2Tex.Properties.Resources.icons8_live_ordner_80;
+            this.btn_save_directory.Label = "Save directory";
+            this.btn_save_directory.Name = "btn_save_directory";
+            this.btn_save_directory.ShowImage = true;
+            // 
+            // btn_overwrite
+            // 
+            this.btn_overwrite.Image = global::Styles2Tex.Properties.Resources.icons8_schalter_an_100;
+            this.btn_overwrite.Label = "Overwrite";
+            this.btn_overwrite.Name = "btn_overwrite";
+            this.btn_overwrite.ShowImage = true;
+            this.btn_overwrite.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_overwrite_Click);
+            // 
+            // btn_encoding
+            // 
+            this.btn_encoding.Image = global::Styles2Tex.Properties.Resources.icons8_übersetzung_80;
+            this.btn_encoding.Label = "Encoding";
+            this.btn_encoding.Name = "btn_encoding";
+            this.btn_encoding.ShowImage = true;
+            // 
+            // btn_more_settings
+            // 
+            this.btn_more_settings.Image = global::Styles2Tex.Properties.Resources.icons8_sortier_optionen_100;
+            this.btn_more_settings.Label = "More settings";
+            this.btn_more_settings.Name = "btn_more_settings";
+            this.btn_more_settings.ShowImage = true;
+            this.btn_more_settings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_more_settings_Click);
             // 
             // btn_about
             // 
-            this.btn_about.Image = global::Styles2Tex.Properties.Resources.iconfinder_Gnome_Dialog_Question_64_55570;
+            this.btn_about.Image = global::Styles2Tex.Properties.Resources.icons8_informationen_80;
             this.btn_about.Label = "About";
             this.btn_about.Name = "btn_about";
             this.btn_about.ShowImage = true;
@@ -114,8 +151,12 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup grp_styles2tex;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_new_simple;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_new_multiple;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_settings;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_more_settings;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_about;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_encoding;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_styles;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_save_directory;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_overwrite;
     }
 
     partial class ThisRibbonCollection

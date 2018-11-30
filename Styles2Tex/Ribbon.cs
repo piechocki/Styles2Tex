@@ -12,6 +12,7 @@ namespace Styles2Tex
         Application word;
         Document doc;
         StylesParser sp;
+        bool overwrite = true;
         private void Ribbon_Load(object sender, RibbonUIEventArgs e)
         {
             // initialise word app and active document
@@ -33,14 +34,27 @@ namespace Styles2Tex
 
         }
 
-        private void btn_settings_Click(object sender, RibbonControlEventArgs e)
-        {
-
-        }
-
         private void btn_about_Click(object sender, RibbonControlEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/piechocki/Styles2Tex");
+        }
+
+        private void btn_overwrite_Click(object sender, RibbonControlEventArgs e)
+        {
+            if (overwrite)
+            {
+                btn_overwrite.Image = Properties.Resources.icons8_schalter_aus_100;
+            }
+            else
+            {
+                btn_overwrite.Image = Properties.Resources.icons8_schalter_an_100;
+            }
+            overwrite = !overwrite;
+        }
+         
+        private void btn_more_settings_Click(object sender, RibbonControlEventArgs e)
+        {
+
         }
     }
 }

@@ -28,16 +28,16 @@
     <AssemblyName>Styles2Tex</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
+    <IsWebBootstrapper>False</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>C:\Users\marti\Documents\Styles2Tex\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.0</ApplicationVersion>
-    <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
+    <ApplicationVersion>1.0.0.1</ApplicationVersion>
+    <AutoIncrementApplicationRevision>false</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
-    <IsWebBootstrapper>False</IsWebBootstrapper>
     <ProductName>Styles2Tex</ProductName>
     <PublisherName />
     <SupportUrl />
@@ -226,16 +226,27 @@
     <Folder Include="Buttons\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconfinder_Gnome-Dialog-Question-64_55570.png" />
+    <None Include="Resources\icons8-dokument-100.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconfinder_Gnome-Emblem-Documents-64_55597 %281%29.png" />
+    <None Include="Resources\icons8-dokumente-100.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconfinder_Gnome-Preferences-System-64_55738.png" />
+    <None Include="Resources\icons8-sortier-optionen-100.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\iconfinder_Gnome-Text-X-Generic-64_55767.png" />
+    <None Include="Resources\icons8-informationen-80.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.ico" />
+    <None Include="Resources\icons8-live-ordner-80.png" />
+    <None Include="Resources\icons8-schalter-aus-100.png" />
+    <None Include="Resources\icons8-schalter-an-100.png" />
+    <None Include="Resources\icons8-einstellungen-100.png" />
+    <Content Include="Resources\icons8-info-80.png" />
+    <None Include="Resources\icons8-ordner-_dokumente_-100.png" />
+    <None Include="Resources\icons8-kopfzeile-1-80.png" />
+    <None Include="Resources\icons8-übersetzung-80.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -250,6 +261,9 @@
   <PropertyGroup>
     <ManifestCertificateThumbprint>EB99F4A3FC8CB5FEEC59E17AB0E2FDFC855A768C</ManifestCertificateThumbprint>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- Include additional build rules for an Office application add-in. -->
@@ -259,8 +273,8 @@
     <VisualStudio>
       <FlavorProperties GUID="{BAA0C2D2-18E2-41B9-852F-F413020CAA33}">
         <ProjectProperties HostName="Word" HostPackage="{29A7B9D7-A7F1-4328-8EF0-6B2D1A56B2C1}" OfficeVersion="15.0" VstxVersion="4.0" ApplicationType="Word" Language="cs" TemplatesPath="" DebugInfoExeName="#Software\Microsoft\Office\16.0\Word\InstallRoot\Path#WINWORD.EXE" DebugInfoCommandLine="/x" AddItemTemplatesGuid="{51063C3A-E220-4D12-8922-BDA915ACD783}" />
-        <Host Name="Word" GeneratedCodeNamespace="Styles2Tex" IconIndex="0">
-          <HostItem Name="ThisAddIn" Code="ThisAddIn.cs" CanonicalName="AddIn" CanActivate="false" IconIndex="1" Blueprint="ThisAddIn.Designer.xml" GeneratedCode="ThisAddIn.Designer.cs" />
+        <Host Name="Word" GeneratedCodeNamespace="Styles2Tex" PublishedHash="69C324AB27932AA2FBF2B7EA72250886FF164DE6" IconIndex="0">
+          <HostItem Name="ThisAddIn" Code="ThisAddIn.cs" CanonicalName="AddIn" CanActivate="false" IconIndex="1" Blueprint="ThisAddIn.Designer.xml" GeneratedCode="ThisAddIn.Designer.cs" PublishedHash="9BCCBFE22E5F2C1974C2EC9A6A554682115AB32A" />
         </Host>
       </FlavorProperties>
     </VisualStudio>
