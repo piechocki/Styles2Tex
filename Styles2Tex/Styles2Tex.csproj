@@ -243,8 +243,6 @@
     <None Include="Resources\icons8-schalter-aus-100.png" />
     <None Include="Resources\icons8-schalter-an-100.png" />
     <None Include="Resources\icons8-einstellungen-100.png" />
-    <Content Include="Resources\icons8-info-80.png" />
-    <None Include="Resources\icons8-ordner-_dokumente_-100.png" />
     <None Include="Resources\icons8-kopfzeile-1-80.png" />
     <None Include="Resources\icons8-übersetzung-80.png" />
   </ItemGroup>

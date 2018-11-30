@@ -71,7 +71,7 @@
             // btn_new_simple
             // 
             this.btn_new_simple.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btn_new_simple.Image = global::Styles2Tex.Properties.Resources.icons8_dokument_100;
+            this.btn_new_simple.Image = global::Styles2Tex.Properties.Resources.new_simple;
             this.btn_new_simple.Label = "New tex file";
             this.btn_new_simple.Name = "btn_new_simple";
             this.btn_new_simple.ShowImage = true;
@@ -80,7 +80,7 @@
             // btn_new_multiple
             // 
             this.btn_new_multiple.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btn_new_multiple.Image = global::Styles2Tex.Properties.Resources.icons8_dokumente_100;
+            this.btn_new_multiple.Image = global::Styles2Tex.Properties.Resources.new_multiple;
             this.btn_new_multiple.Label = "New tex files";
             this.btn_new_multiple.Name = "btn_new_multiple";
             this.btn_new_multiple.ShowImage = true;
@@ -88,21 +88,21 @@
             // 
             // btn_styles
             // 
-            this.btn_styles.Image = global::Styles2Tex.Properties.Resources.icons8_kopfzeile_1_80;
+            this.btn_styles.Image = global::Styles2Tex.Properties.Resources.styles;
             this.btn_styles.Label = "Styles";
             this.btn_styles.Name = "btn_styles";
             this.btn_styles.ShowImage = true;
             // 
             // btn_save_directory
             // 
-            this.btn_save_directory.Image = global::Styles2Tex.Properties.Resources.icons8_live_ordner_80;
+            this.btn_save_directory.Image = global::Styles2Tex.Properties.Resources.save_directory;
             this.btn_save_directory.Label = "Save directory";
             this.btn_save_directory.Name = "btn_save_directory";
             this.btn_save_directory.ShowImage = true;
             // 
             // btn_overwrite
             // 
-            this.btn_overwrite.Image = global::Styles2Tex.Properties.Resources.icons8_schalter_an_100;
+            this.btn_overwrite.Image = global::Styles2Tex.Properties.Resources.overwrite_on;
             this.btn_overwrite.Label = "Overwrite";
             this.btn_overwrite.Name = "btn_overwrite";
             this.btn_overwrite.ShowImage = true;
@@ -110,14 +110,14 @@
             // 
             // btn_encoding
             // 
-            this.btn_encoding.Image = global::Styles2Tex.Properties.Resources.icons8_übersetzung_80;
+            this.btn_encoding.Image = global::Styles2Tex.Properties.Resources.encoding;
             this.btn_encoding.Label = "Encoding";
             this.btn_encoding.Name = "btn_encoding";
             this.btn_encoding.ShowImage = true;
             // 
             // btn_more_settings
             // 
-            this.btn_more_settings.Image = global::Styles2Tex.Properties.Resources.icons8_sortier_optionen_100;
+            this.btn_more_settings.Image = global::Styles2Tex.Properties.Resources.settings;
             this.btn_more_settings.Label = "More settings";
             this.btn_more_settings.Name = "btn_more_settings";
             this.btn_more_settings.ShowImage = true;
@@ -125,7 +125,7 @@
             // 
             // btn_about
             // 
-            this.btn_about.Image = global::Styles2Tex.Properties.Resources.icons8_informationen_80;
+            this.btn_about.Image = global::Styles2Tex.Properties.Resources.about;
             this.btn_about.Label = "About";
             this.btn_about.Name = "btn_about";
             this.btn_about.ShowImage = true;

@@ -118,52 +118,34 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="icons8-ordner-_dokumente_-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-ordner-_dokumente_-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-dokument-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="new_simple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-dokument-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-schalter-aus-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="overwrite_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-schalter-aus-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-schalter-an-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="overwrite_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-schalter-an-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-informationen-80" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="about" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-informationen-80.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="iconfinder_Gnome-Text-X-Generic-64_55767" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconfinder_Gnome-Text-X-Generic-64_55767.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-einstellungen-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="more_settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-einstellungen-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="iconfinder_Gnome-Emblem-Documents-64_55597 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconfinder_Gnome-Emblem-Documents-64_55597 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-info-80" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-info-80.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-kopfzeile-1-80" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="styles" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-kopfzeile-1-80.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-übersetzung-80" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="encoding" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-übersetzung-80.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="iconfinder_Gnome-Preferences-System-64_55738" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconfinder_Gnome-Preferences-System-64_55738.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-dokumente-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="new_multiple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-dokumente-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="iconfinder_Gnome-Dialog-Question-64_55570" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconfinder_Gnome-Dialog-Question-64_55570.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8-sortier-optionen-100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-sortier-optionen-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-live-ordner-80" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="save_directory" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-live-ordner-80.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

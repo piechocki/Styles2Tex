@@ -63,9 +63,9 @@ namespace Styles2Tex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap iconfinder_Gnome_Dialog_Question_64_55570 {
+        internal static System.Drawing.Bitmap about {
             get {
-                object obj = ResourceManager.GetObject("iconfinder_Gnome-Dialog-Question-64_55570", resourceCulture);
+                object obj = ResourceManager.GetObject("about", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace Styles2Tex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap iconfinder_Gnome_Emblem_Documents_64_55597__1_ {
+        internal static System.Drawing.Bitmap encoding {
             get {
-                object obj = ResourceManager.GetObject("iconfinder_Gnome-Emblem-Documents-64_55597 (1)", resourceCulture);
+                object obj = ResourceManager.GetObject("encoding", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace Styles2Tex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap iconfinder_Gnome_Preferences_System_64_55738 {
+        internal static System.Drawing.Bitmap more_settings {
             get {
-                object obj = ResourceManager.GetObject("iconfinder_Gnome-Preferences-System-64_55738", resourceCulture);
+                object obj = ResourceManager.GetObject("more_settings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace Styles2Tex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap iconfinder_Gnome_Text_X_Generic_64_55767 {
+        internal static System.Drawing.Bitmap new_multiple {
             get {
-                object obj = ResourceManager.GetObject("iconfinder_Gnome-Text-X-Generic-64_55767", resourceCulture);
+                object obj = ResourceManager.GetObject("new_multiple", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace Styles2Tex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_dokument_100 {
+        internal static System.Drawing.Bitmap new_simple {
             get {
-                object obj = ResourceManager.GetObject("icons8-dokument-100", resourceCulture);
+                object obj = ResourceManager.GetObject("new_simple", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace Styles2Tex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_dokumente_100 {
+        internal static System.Drawing.Bitmap overwrite_off {
             get {
-                object obj = ResourceManager.GetObject("icons8-dokumente-100", resourceCulture);
+                object obj = ResourceManager.GetObject("overwrite_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace Styles2Tex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_einstellungen_100 {
+        internal static System.Drawing.Bitmap overwrite_on {
             get {
-                object obj = ResourceManager.GetObject("icons8-einstellungen-100", resourceCulture);
+                object obj = ResourceManager.GetObject("overwrite_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +133,9 @@ namespace Styles2Tex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_info_80 {
+        internal static System.Drawing.Bitmap save_directory {
             get {
-                object obj = ResourceManager.GetObject("icons8-info-80", resourceCulture);
+                object obj = ResourceManager.GetObject("save_directory", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +143,9 @@ namespace Styles2Tex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_informationen_80 {
+        internal static System.Drawing.Bitmap settings {
             get {
-                object obj = ResourceManager.GetObject("icons8-informationen-80", resourceCulture);
+                object obj = ResourceManager.GetObject("settings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,69 +153,9 @@ namespace Styles2Tex.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_kopfzeile_1_80 {
+        internal static System.Drawing.Bitmap styles {
             get {
-                object obj = ResourceManager.GetObject("icons8-kopfzeile-1-80", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_live_ordner_80 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-live-ordner-80", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_ordner__dokumente__100 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-ordner-_dokumente_-100", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_schalter_an_100 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-schalter-an-100", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_schalter_aus_100 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-schalter-aus-100", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_sortier_optionen_100 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-sortier-optionen-100", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_übersetzung_80 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-übersetzung-80", resourceCulture);
+                object obj = ResourceManager.GetObject("styles", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

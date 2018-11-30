@@ -43,11 +43,11 @@ namespace Styles2Tex
         {
             if (overwrite)
             {
-                btn_overwrite.Image = Properties.Resources.icons8_schalter_aus_100;
+                btn_overwrite.Image = Properties.Resources.overwrite_off;
             }
             else
             {
-                btn_overwrite.Image = Properties.Resources.icons8_schalter_an_100;
+                btn_overwrite.Image = Properties.Resources.overwrite_on;
             }
             overwrite = !overwrite;
         }
