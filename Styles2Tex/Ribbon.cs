@@ -5,6 +5,7 @@ using Microsoft.Office.Tools.Ribbon;
 using System.Xml.Linq;
 using System.IO;
 using System.Windows.Forms;
+using System.Text;
 
 namespace Styles2Tex
 {
@@ -17,7 +18,8 @@ namespace Styles2Tex
         // TODO: implement more config elements - encoding, labels, filenames, abstract
         static Dictionary<string, string> default_config = new Dictionary<string, string>() {
             { "overwrite", "true" },
-            { "save_directory", "" }
+            { "save_directory", "" },
+            { "encoding", "" }
         };
 
         private void Ribbon_Load(object sender, RibbonUIEventArgs e)
@@ -27,8 +29,9 @@ namespace Styles2Tex
             sp = new StylesParser();
             // load config
             config = Load_Config();
-            // load button
+            // load button and dropdown
             Load_Btn_Overwrite();
+            Load_Dd_Encoding();
         }
 
         private void Btn_New_Simple_Click(object sender, RibbonControlEventArgs e)
@@ -91,7 +94,7 @@ namespace Styles2Tex
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(string.Format("The settings of the Styles2Tex addin could not be loaded. Reason: {0} \n\nThe addin starts with default settings now.", e.Message), "Error");
+                    MessageBox.Show(string.Format("The settings of the Styles2Tex addin could not be loaded. Reason: {0} \n\nThe addin starts with default settings now.", e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Save_Config();
                 }
             }
@@ -100,7 +103,7 @@ namespace Styles2Tex
 
         private void Btn_Encoding_Click(object sender, RibbonControlEventArgs e)
         {
-            return;
+            config["encoding"] = "iso-8859-1";
         }
         
         private void Btn_Save_Directory_Click(object sender, RibbonControlEventArgs e)
@@ -137,6 +140,52 @@ namespace Styles2Tex
             {
 
             }
-        }       
+        }
+
+        private void Dd_Encoding_SelectionChanged(object sender, RibbonControlEventArgs e)
+        {
+            config["encoding"] = Dd_Encoding.SelectedItem.Label == "" ? "" : Dd_Encoding.SelectedItem.Tag.ToString();
+            Save_Config();
+        }
+
+        private void Load_Dd_Encoding()
+        {
+            Dd_Encoding.Items.Clear();
+            Dictionary<string, string> encodings = Get_Encodings();
+            foreach (KeyValuePair<string, string> encoding in encodings)
+            {
+                RibbonDropDownItem ddi = Globals.Factory.GetRibbonFactory().CreateRibbonDropDownItem();
+                ddi.Label = encoding.Value;
+                ddi.Tag = encoding.Key;
+                Dd_Encoding.Items.Add(ddi);
+            }
+            Dd_Encoding.Items.OrderBy(x => x.Label);
+            RibbonDropDownItem selected_encoding = Dd_Encoding.Items.Where(x => x.Tag.ToString() == config["encoding"]).FirstOrDefault();
+            if (config["encoding"] != "" && selected_encoding != null)
+            {
+                Dd_Encoding.SelectedItem = selected_encoding;
+            }
+            else
+            {
+                // select empty item from dropdown if encoding is not set yet
+                Dd_Encoding.SelectedItem = Dd_Encoding.Items.Where(x => x.Tag.ToString() == "null").First();
+            }
+        }
+
+        private Dictionary<string, string> Get_Encodings()
+        {
+            Dictionary<string, string> encodings = new Dictionary<string, string>();
+            EncodingInfo[] eis = Encoding.GetEncodings();
+            encodings.Add("null", "");
+            foreach (EncodingInfo ei in eis)
+            {
+                if (!encodings.ContainsKey(ei.Name))
+                {
+                    encodings.Add(ei.Name, ei.DisplayName);
+                }                    
+            }
+            encodings = encodings.OrderBy(x => x.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+            return encodings;
+        }
     }
 }

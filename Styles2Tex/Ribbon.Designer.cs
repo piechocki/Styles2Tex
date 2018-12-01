@@ -44,7 +44,7 @@ namespace Styles2Tex
             this.Btn_Styles = this.Factory.CreateRibbonButton();
             this.Btn_Save_Directory = this.Factory.CreateRibbonButton();
             this.Btn_Overwrite = this.Factory.CreateRibbonButton();
-            this.Btn_Encoding = this.Factory.CreateRibbonButton();
+            this.Dd_Encoding = this.Factory.CreateRibbonDropDown();
             this.Btn_More_Settings = this.Factory.CreateRibbonButton();
             this.Btn_About = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
@@ -65,7 +65,7 @@ namespace Styles2Tex
             this.grp_styles2tex.Items.Add(this.Btn_Styles);
             this.grp_styles2tex.Items.Add(this.Btn_Save_Directory);
             this.grp_styles2tex.Items.Add(this.Btn_Overwrite);
-            this.grp_styles2tex.Items.Add(this.Btn_Encoding);
+            this.grp_styles2tex.Items.Add(this.Dd_Encoding);
             this.grp_styles2tex.Items.Add(this.Btn_More_Settings);
             this.grp_styles2tex.Items.Add(this.Btn_About);
             this.grp_styles2tex.Label = "Styles2Tex";
@@ -113,13 +113,13 @@ namespace Styles2Tex
             this.Btn_Overwrite.ShowImage = true;
             this.Btn_Overwrite.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_Overwrite_Click);
             // 
-            // Btn_Encoding
+            // Dd_Encoding
             // 
-            this.Btn_Encoding.Image = global::Styles2Tex.Properties.Resources.encoding;
-            this.Btn_Encoding.Label = "Encoding";
-            this.Btn_Encoding.Name = "Btn_Encoding";
-            this.Btn_Encoding.ShowImage = true;
-            this.Btn_Encoding.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_Encoding_Click);
+            this.Dd_Encoding.Image = global::Styles2Tex.Properties.Resources.encoding;
+            this.Dd_Encoding.Label = "Encoding";
+            this.Dd_Encoding.Name = "Dd_Encoding";
+            this.Dd_Encoding.ShowImage = true;
+            this.Dd_Encoding.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Dd_Encoding_SelectionChanged);
             // 
             // Btn_More_Settings
             // 
@@ -161,10 +161,10 @@ namespace Styles2Tex
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_New_Multiple;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_More_Settings;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_About;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_Encoding;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_Styles;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_Save_Directory;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_Overwrite;
+        internal RibbonDropDown Dd_Encoding;
     }
 
     partial class ThisRibbonCollection

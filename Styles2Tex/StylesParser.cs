@@ -23,7 +23,12 @@ namespace Styles2Tex
             DateTime begin = DateTime.Now;
             if (config["save_directory"] == "")
             {
-                MessageBox.Show("Please set the save directory first.");
+                MessageBox.Show("Please set the save directory first.", "Settings missing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (config["encoding"] == "")
+            {
+                MessageBox.Show("Please set the encoding first.", "Settings missing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             else
@@ -52,7 +57,7 @@ namespace Styles2Tex
                             if (file_txt != "")
                             {
                                 // Save the previous file_txt if it's not empty
-                                j += Save_File(file, file_txt, System.Convert.ToBoolean(config["overwrite"])) ? 1 : 0;
+                                j += Save_File(file, file_txt, System.Convert.ToBoolean(config["overwrite"]), config["encoding"]) ? 1 : 0;
                                 // Clean the file_text variable for the next section
                                 file_txt = "";
                                 k = k + 1;
@@ -127,7 +132,7 @@ namespace Styles2Tex
                     default:
                         {
                             // If there is another paragraph with unknown format, return an error and exit
-                            MessageBox.Show(string.Format("The style of paragraph #{0} is unknown. Style name: {1}.", i, doc.Paragraphs[i].get_Style().NameLocal), "Error");
+                            MessageBox.Show(string.Format("The style of paragraph #{0} is unknown. Style name: {1}.", i, doc.Paragraphs[i].get_Style().NameLocal), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                 }
@@ -147,7 +152,7 @@ namespace Styles2Tex
             }
 
             // Save the last file_txt if the parsing of the word is finished
-            j += Save_File(file, file_txt, System.Convert.ToBoolean(config["overwrite"])) ? 1 : 0;
+            j += Save_File(file, file_txt, System.Convert.ToBoolean(config["overwrite"]), config["encoding"]) ? 1 : 0;
 
             if (j == 0)
             {
@@ -164,10 +169,9 @@ namespace Styles2Tex
 
         private bool No_Equation(Document doc, int i)
         {
-            int j;
             bool ne = true;
 
-            for (j = i; j >= i - 3; j += -1)
+            for (int j = i; j >= i - 3; j += -1)
             {
                 if (j == 0)
                     break;
@@ -176,7 +180,7 @@ namespace Styles2Tex
             }
             return ne;
         }
-
+        
         private string Text_Format(string text)
         {
             string tf = text.Trim();
@@ -196,13 +200,13 @@ namespace Styles2Tex
             return lf;
         }
 
-        private bool Save_File(string file, string file_txt, bool overwrite)
+        private bool Save_File(string file, string file_txt, bool overwrite, string encoding)
         {
             if (!File.Exists(file) || overwrite)
             {
                 try
                 {
-                    using (StreamWriter sw = new StreamWriter(File.Open(file, FileMode.Create), Encoding.GetEncoding("iso-8859-1")))
+                    using (StreamWriter sw = new StreamWriter(File.Open(file, FileMode.Create), Encoding.GetEncoding(encoding)))
                     {
                         sw.Write(file_txt);
                     }
@@ -210,7 +214,7 @@ namespace Styles2Tex
                 }
                 catch(Exception e)
                 {
-                    MessageBox.Show(string.Format("At least one tex file could not be saved. Reason: {0}", e.Message), "Error");
+                    MessageBox.Show(string.Format("At least one tex file could not be saved. Reason: {0}", e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             return false;
