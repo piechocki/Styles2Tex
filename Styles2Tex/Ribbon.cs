@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.IO;
 using System.Windows.Forms;
 using System.Text;
+using Styles2Tex.View;
 
 namespace Styles2Tex
 {
@@ -46,7 +47,8 @@ namespace Styles2Tex
 
         private void Btn_About_Click(object sender, RibbonControlEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/piechocki/Styles2Tex");
+            About about = new View.About();
+            about.Show();
         }
 
         private void Load_Btn_Overwrite()
