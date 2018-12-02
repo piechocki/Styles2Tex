@@ -96,12 +96,13 @@ namespace Styles2Tex
                             txt = para;
 
                             // Check if carriage return characters after the paragraph are required
-                            if (i < doc.Paragraphs.Count)
+                            if (i < doc.Paragraphs.Count &&
+                                doc.Paragraphs[i + 1].get_Style().NameLocal == "Standard" &&
+                                No_Equation(doc, i) &&
+                                !doc.Paragraphs[i + 1].Range.Text.StartsWith("\\input{") &&
+                                !doc.Paragraphs[i + 1].Range.Text.StartsWith("\\begin{"))
                             {
-                                if (doc.Paragraphs[i + 1].get_Style().NameLocal == "Standard" & No_Equation(doc, i) & !doc.Paragraphs[i + 1].Range.Text.StartsWith("\\input{") & !doc.Paragraphs[i + 1].Range.Text.StartsWith("\\begin{"))
-                                {
-                                    txt = txt + "\\\\";
-                                }                                    
+                                txt = new StringBuilder(txt).Append("\\\\").ToString();
                             }
                             break;
                         }

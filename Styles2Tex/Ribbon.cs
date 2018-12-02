@@ -42,7 +42,7 @@ namespace Styles2Tex
 
         private void Btn_New_Multiple_Click(object sender, RibbonControlEventArgs e)
         {
-
+            return;
         }
 
         private void Btn_About_Click(object sender, RibbonControlEventArgs e)
@@ -72,7 +72,7 @@ namespace Styles2Tex
 
         private void Btn_More_Settings_Click(object sender, RibbonControlEventArgs e)
         {
-
+            return;
         }
 
         private Dictionary<string, string> Load_Config()
@@ -114,13 +114,12 @@ namespace Styles2Tex
             {
                 fbd.SelectedPath = config["save_directory"];
                 DialogResult result = fbd.ShowDialog();
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                if (result == DialogResult.OK &&
+                    !string.IsNullOrWhiteSpace(fbd.SelectedPath) &&
+                    fbd.SelectedPath != config["save_directory"])
                 {
-                    if (fbd.SelectedPath != config["save_directory"])
-                    {
-                        config["save_directory"] = fbd.SelectedPath;
-                        Save_Config();
-                    }
+                    config["save_directory"] = fbd.SelectedPath;
+                    Save_Config();
                 }
             }
         }
@@ -138,9 +137,11 @@ namespace Styles2Tex
             {
                 el.Save(config_path);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+#if DEBUG
+                Console.WriteLine(string.Format("Error while saving the config: {0}", e));
+#endif
             }
         }
 
@@ -161,8 +162,7 @@ namespace Styles2Tex
                 ddi.Tag = encoding.Key;
                 Dd_Encoding.Items.Add(ddi);
             }
-            Dd_Encoding.Items.OrderBy(x => x.Label);
-            RibbonDropDownItem selected_encoding = Dd_Encoding.Items.Where(x => x.Tag.ToString() == config["encoding"]).FirstOrDefault();
+            RibbonDropDownItem selected_encoding = Dd_Encoding.Items.FirstOrDefault(x => x.Tag.ToString() == config["encoding"]);
             if (config["encoding"] != "" && selected_encoding != null)
             {
                 Dd_Encoding.SelectedItem = selected_encoding;
@@ -170,7 +170,7 @@ namespace Styles2Tex
             else
             {
                 // select empty item from dropdown if encoding is not set yet
-                Dd_Encoding.SelectedItem = Dd_Encoding.Items.Where(x => x.Tag.ToString() == "null").First();
+                Dd_Encoding.SelectedItem = Dd_Encoding.Items.First(x => x.Tag.ToString() == "null");
             }
         }
 
