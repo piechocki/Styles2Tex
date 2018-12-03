@@ -17,20 +17,22 @@ namespace Styles2Tex
         Dictionary<string, string> config;
         static string config_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Styles2Tex\\settings.xml");
         // TODO: implement more config elements - encoding, labels, filenames, abstract
-        static Dictionary<string, string> default_config = new Dictionary<string, string>() {
-            { "overwrite", "true" },
+        readonly Dictionary<string, string> default_config = new Dictionary<string, string>() {
+            { "overwrite", "False" },
             { "save_directory", "" },
             { "encoding", "" }
         };
 
         private void Ribbon_Load(object sender, RibbonUIEventArgs e)
         {
-            // initialise word app and parser
+            // instantiate word app and parser
             word = Globals.ThisAddIn.Application;
             sp = new StylesParser();
-            // load config
+            // load config (if there is no config or an error occurs while loading, default_config will be returned
             config = Load_Config();
-            // load button and dropdown
+            // save config (e.g. because the config file was missing before and is instantiated now)
+            Save_Config();
+            // load overwrite button settings and encoding dropdown entries
             Load_Btn_Overwrite();
             Load_Dd_Encoding();
         }
@@ -79,33 +81,56 @@ namespace Styles2Tex
         {
             if (!File.Exists(config_path))
             {
-                config = default_config;
-                Save_Config();
+                return Get_Dictionary_Copy(default_config);
             }
             else
             {
                 string xml = File.ReadAllText(config_path);
                 XElement rootElement = XElement.Parse(xml);
-                config = default_config;
+                Dictionary<string, string> config_from_file = Get_Dictionary_Copy(default_config);
                 try
                 {
                     foreach (var el in rootElement.Elements())
                     {
-                        config[el.Name.LocalName] = el.Value;
+                        Validate_Settings(el);
+                        config_from_file[el.Name.LocalName] = el.Value;
                     }
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(string.Format("The settings of the Styles2Tex addin could not be loaded. Reason: {0} \n\nThe addin starts with default settings now.", e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Save_Config();
+                    MessageBox.Show(string.Format("The settings of the Styles2Tex addin could not be loaded. Reason: {0}\n\nThe addin starts with default settings now.", e.Message), "Styles2Tex", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return Get_Dictionary_Copy(default_config);
                 }
+                return config_from_file;
             }
-            return config;
         }
 
-        private void Btn_Encoding_Click(object sender, RibbonControlEventArgs e)
+        private Dictionary<string, string> Get_Dictionary_Copy(Dictionary<string, string> dict)
         {
-            config["encoding"] = "iso-8859-1";
+            return dict.ToDictionary(entry => entry.Key, entry => entry.Value);
+        }
+
+        private void Validate_Settings(XElement el)
+        {
+            switch (el.Name.LocalName)
+            {
+                case "overwrite":
+                    string test_convert = Convert.ToBoolean(el.Value).ToString();
+                    break;
+                case "save_directory":
+                    if (el.Value.Length != 0 && !Directory.Exists(el.Value))
+                    {
+                        Directory.CreateDirectory(el.Value);
+                        Directory.Delete(el.Value);
+                    }
+                    break;
+                case "encoding":
+                    if (el.Value.Length != 0)
+                    {
+                        string test_encoding = Get_Encodings()[el.Value];
+                    }
+                    break;
+            }
         }
         
         private void Btn_Save_Directory_Click(object sender, RibbonControlEventArgs e)
@@ -122,11 +147,6 @@ namespace Styles2Tex
                     Save_Config();
                 }
             }
-        }
-
-        private void Btn_Styles_Click(object sender, RibbonControlEventArgs e)
-        {
-            return;
         }
 
         private void Save_Config()
@@ -188,6 +208,18 @@ namespace Styles2Tex
             }
             encodings = encodings.OrderBy(x => x.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
             return encodings;
+        }
+
+        private void Btn_Supported_Styles_Click(object sender, RibbonControlEventArgs e)
+        {
+            List<string> supported_styles = sp.Get_Local_Names(word.ActiveDocument).Values.ToList();
+            StringBuilder message = new StringBuilder();
+            message.AppendLine("Currently the following built-in styles are supported already:\r");
+            foreach (string supported_style in supported_styles)
+            {
+                message.Append("  - ").AppendLine(supported_style);
+            }
+            MessageBox.Show(message.ToString(), "Styles2Tex", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

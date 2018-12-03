@@ -6,178 +6,198 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Styles2Tex
 {
     class StylesParser
     {
+        readonly Enum[] supported_styles = {
+            WdBuiltinStyle.wdStyleTitle,
+            WdBuiltinStyle.wdStyleNormal,
+            WdBuiltinStyle.wdStyleHeading1,
+            WdBuiltinStyle.wdStyleHeading2,
+            WdBuiltinStyle.wdStyleHeading3,
+            WdBuiltinStyle.wdStyleListParagraph
+        };
+
         public void Convert(Microsoft.Office.Interop.Word.Application word, Dictionary<string, string> config)
         {
-            string txt;
+            StringBuilder txt;
             string path;
             string para;
             string file = "";
             Range ranActRange;
             Document doc = word.ActiveDocument;
-
             DateTime begin = DateTime.Now;
+            Dictionary<Enum, string> local_names = Get_Local_Names(doc);
+
             if (config["save_directory"] == "")
             {
-                MessageBox.Show("Please set the save directory first.", "Settings missing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Settings missing: Please set the save directory first.", "Styles2Tex", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             else if (config["encoding"] == "")
             {
-                MessageBox.Show("Please set the encoding first.", "Settings missing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Settings missing: Please set the encoding first.", "Styles2Tex", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             else
             {
                 path = config["save_directory"];
             }
-
-            int k = 0;
-            int j = 0;
-            string file_txt = "";
-            int para_count = doc.Paragraphs.Count;
+                        
+            StringBuilder file_txt = new StringBuilder();            
             string status;
+            string para_style;
+            int para_count = doc.Paragraphs.Count;
+            int not_builtin = 0;
+            int not_supported = 0;
+            int sec_number = 0;
+            int written_files = 0;
+            DateTime status_refreshed = DateTime.MinValue;
 
             for (int i = 1; i <= para_count; i++)
             {
                 status = string.Format("Processing paragraph {0} of {1}", i, para_count);
-                word.StatusBar = status;
-                ranActRange = doc.Paragraphs[i].Range;
-                para = Text_Format(ranActRange.Text);
-                txt = "";
-
-                switch (doc.Paragraphs[i].get_Style().NameLocal)
+                if (status_refreshed == DateTime.MinValue || status_refreshed.Second < DateTime.Now.Second)
                 {
-                    case "Überschrift 1":
-                        {
-                            if (file_txt != "")
-                            {
-                                // Save the previous file_txt if it's not empty
-                                j += Save_File(file, file_txt, System.Convert.ToBoolean(config["overwrite"]), config["encoding"]) ? 1 : 0;
-                                // Clean the file_text variable for the next section
-                                file_txt = "";
-                                k = k + 1;
-                            }
-
-                            if (k == 0)
-                            {
-                                // Exception for first file (abstract)
-                                file = Path.Combine(path, "abstract.tex");
-                                txt = "\\section*{\\centering{" + para + "}}";
-                            }
-                            else
-                            {
-                                // All other files will be saved with its section number
-                                file = Path.Combine(path, "sec" + System.Convert.ToString(k) + ".tex");
-                                txt = "\\section{" + para + "} \\label{" + Label_Format(para) + "}";
-                            }
-
-                            break;
-                        }
-
-                    case "Überschrift 2":
-                        {
-                            txt = "\\subsection{" + para + "} \\label{" + Label_Format(para) + "}";
-                            break;
-                        }
-
-                    case "Überschrift 3":
-                        {
-                            txt = "\\subsubsection{" + para + "} \\label{" + Label_Format(para) + "}";
-                            break;
-                        }
-
-                    case "Standard":
-                        {
-                            txt = para;
-
-                            // Check if carriage return characters after the paragraph are required
-                            if (i < doc.Paragraphs.Count &&
-                                doc.Paragraphs[i + 1].get_Style().NameLocal == "Standard" &&
-                                No_Equation(doc, i) &&
-                                !doc.Paragraphs[i + 1].Range.Text.StartsWith("\\input{") &&
-                                !doc.Paragraphs[i + 1].Range.Text.StartsWith("\\begin{"))
-                            {
-                                txt = new StringBuilder(txt).Append("\\\\").ToString();
-                            }
-                            break;
-                        }
-
-                    case "Titel":
-                        {
-                            break;
-                        }
-
-                    case "Listenabsatz":
-                        {
-                            if (doc.Paragraphs[i - 1].get_Style().NameLocal != "Listenabsatz")
-                            {
-                                // If it's the first item in itemize, first add an opening bracket
-                                txt = "\\begin{itemize}\r";
-                            }
-                            // Add the item
-                            txt = txt + "\\item " + Text_Format(ranActRange.ListParagraphs[1].Range.Text);
-
-                            if (doc.Paragraphs[i - 1].get_Style().NameLocal == "Listenabsatz" & doc.Paragraphs[i + 1].get_Style().NameLocal != "Listenabsatz")
-                            {
-                                // If it's the last item in itemize, finally close the bracket
-                                txt = txt + "\\end{itemize}";
-                            }
-                            break;
-                        }
-
-                    default:
-                        {
-                            // If there is another paragraph with unknown format, return an error and exit
-                            MessageBox.Show(string.Format("The style of paragraph #{0} is unknown. Style name: {1}.", i, doc.Paragraphs[i].get_Style().NameLocal), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                    word.StatusBar = status;
+                    status_refreshed = DateTime.Now;
                 }
 
-                if (txt != "")
+                ranActRange = doc.Paragraphs[i].Range;
+                para = Text_Format(ranActRange.Text);
+                para_style = doc.Paragraphs[i].get_Style().NameLocal;
+                txt = new StringBuilder();
+
+                if (!doc.Paragraphs[i].get_Style().BuiltIn)
                 {
-                    if (file_txt != "")
+                    not_builtin += 1;
+                    continue;
+                }
+                //else if (doc.Paragraphs[i].get_Style().Type != WdStyleType.wdStyleTypeCharacter)
+                //{
+                //    // fehler
+                //}
 
-                        // If file_txt is not empty anymore, append the paragraph separated by a carriage return
-                        file_txt = file_txt + "\r" + txt;
+                if (para_style == local_names[WdBuiltinStyle.wdStyleHeading1])
+                {
+                    if (file_txt.Length != 0)
+                    {
+                        // Save the previous file_txt if it's not empty
+                        written_files += Save_File(file, file_txt.ToString(), System.Convert.ToBoolean(config["overwrite"]), config["encoding"]) ? 1 : 0;
+                        // Clean the file_text variable for the next section
+                        file_txt = new StringBuilder();
+                        sec_number += 1;
+                    }
+
+                    if (sec_number == 0)
+                    {
+                        // Exception for first file (abstract)
+                        file = Path.Combine(path, "abstract.tex");
+                        txt.AppendLine("\\section*{\\centering{" + para + "}}");
+                    }
                     else
+                    {
+                        // All other files will be saved with its section number
+                        file = Path.Combine(path, "sec" + System.Convert.ToString(sec_number) + ".tex");
+                        txt.AppendLine("\\section{" + para + "} \\label{" + Label_Format(para) + "}");
+                    }
+                }
+                else if (para_style == local_names[WdBuiltinStyle.wdStyleHeading2])
+                {
+                    txt.AppendLine("\\subsection{" + para + "} \\label{" + Label_Format(para) + "}");
+                }
+                else if (para_style == local_names[WdBuiltinStyle.wdStyleHeading3])
+                {
+                    txt.AppendLine("\\subsubsection{" + para + "} \\label{" + Label_Format(para) + "}");
+                }
+                else if (para_style == local_names[WdBuiltinStyle.wdStyleNormal])
+                {
+                    // Check if carriage return characters after the paragraph are required
+                    if (i < doc.Paragraphs.Count &&
+                        doc.Paragraphs[i + 1].get_Style().NameLocal == local_names[WdBuiltinStyle.wdStyleNormal] &&
+                        No_Equation(doc, i) &&
+                        !doc.Paragraphs[i + 1].Range.Text.StartsWith("\\input{") &&
+                        !doc.Paragraphs[i + 1].Range.Text.StartsWith("\\begin{"))
+                    {
+                        txt.Append(para).AppendLine("\\\\");
+                    }
+                    else
+                    {
+                        txt.AppendLine(para);
+                    }
+                }
+                else if (para_style == local_names[WdBuiltinStyle.wdStyleTitle])
+                {
 
+                }
+                else if (para_style == local_names[WdBuiltinStyle.wdStyleListParagraph])
+                {
+                    if (doc.Paragraphs[i - 1].get_Style().NameLocal != local_names[WdBuiltinStyle.wdStyleListParagraph])
+                    {
+                        // If it's the first item in itemize, first add an opening bracket
+                        txt.AppendLine("\\begin{itemize}");
+                    }
+                    // Add the item
+                    txt.AppendLine("\\item " + Text_Format(ranActRange.ListParagraphs[1].Range.Text));
 
-                        // Else it's the first line in the file and no carriage return is required
-                        file_txt = txt;
+                    if (doc.Paragraphs[i - 1].get_Style().NameLocal == local_names[WdBuiltinStyle.wdStyleListParagraph] &&
+                        doc.Paragraphs[i + 1].get_Style().NameLocal != local_names[WdBuiltinStyle.wdStyleListParagraph])
+                    {
+                        // If it's the last item in itemize, finally close the bracket
+                        txt.AppendLine("\\end{itemize}");
+                    }
+                }
+                else
+                {
+                    not_supported += 1;
+                    continue;
+                }
+
+                if (txt.Length != 0)
+                {
+                    file_txt.Append(txt.ToString());                     
                 }
             }
 
             // Save the last file_txt if the parsing of the word is finished
-            j += Save_File(file, file_txt, System.Convert.ToBoolean(config["overwrite"]), config["encoding"]) ? 1 : 0;
+            written_files += Save_File(file, file_txt.ToString(), System.Convert.ToBoolean(config["overwrite"]), config["encoding"]) ? 1 : 0;
 
-            if (j == 0)
-            {
-                status = "Processing has finished. No tex files has been written.";
-            }
-            else
-            {
-                status = string.Format("Document processed successfully. {0} tex files has been written. Runtime: {1} seconds", j, System.Convert.ToString((DateTime.Now - begin).Seconds));
-            }
-            word.StatusBar = status;
-            System.Threading.Thread.Sleep(2500);
+            StringBuilder final_status = new StringBuilder("Document processed successfully.");
+            final_status.AppendFormat(" {0} tex files has been written.", written_files);
+            final_status.AppendFormat(" {0} paragraphs were skipped ({1} non built-in styles, {2} built-in but not supported styles).", not_builtin + not_supported, not_builtin, not_supported);
+            final_status.AppendFormat(" Runtime: {0} seconds", System.Convert.ToString((DateTime.Now - begin).Seconds));
+            word.StatusBar = final_status.ToString();
+            Thread.Sleep(10000);
             word.StatusBar = "";
+        }
+
+        public Dictionary<Enum, string> Get_Local_Names(Document doc)
+        {
+            Dictionary<Enum, string> local_names = new Dictionary<Enum, string>();
+            foreach (Enum supported_style in supported_styles)
+            {
+                local_names.Add(supported_style, doc.Styles[supported_style].NameLocal);
+            }
+            return local_names;
         }
 
         private bool No_Equation(Document doc, int i)
         {
             bool ne = true;
 
-            for (int j = i; j >= i - 3; j += -1)
+            for (int j = i; j >= i - 3; j -= 1)
             {
                 if (j == 0)
+                {
                     break;
-                if (doc.Paragraphs[j].Range.Text.StartsWith("\\begin{equation}"))
+                }                
+                else if (doc.Paragraphs[j].Range.Text.StartsWith("\\begin{equation}"))
+                {
                     ne = false;
+                }                    
             }
             return ne;
         }
@@ -215,7 +235,7 @@ namespace Styles2Tex
                 }
                 catch(Exception e)
                 {
-                    MessageBox.Show(string.Format("At least one tex file could not be saved. Reason: {0}", e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format("At least one tex file could not be saved. Reason: {0}", e.Message), "Styles2Tex", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             return false;

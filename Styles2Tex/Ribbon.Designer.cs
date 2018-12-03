@@ -41,7 +41,7 @@ namespace Styles2Tex
             this.grp_styles2tex = this.Factory.CreateRibbonGroup();
             this.Btn_New_Simple = this.Factory.CreateRibbonButton();
             this.Btn_New_Multiple = this.Factory.CreateRibbonButton();
-            this.Btn_Styles = this.Factory.CreateRibbonButton();
+            this.Btn_Supported_Styles = this.Factory.CreateRibbonButton();
             this.Btn_Save_Directory = this.Factory.CreateRibbonButton();
             this.Btn_Overwrite = this.Factory.CreateRibbonButton();
             this.Dd_Encoding = this.Factory.CreateRibbonDropDown();
@@ -62,7 +62,7 @@ namespace Styles2Tex
             // 
             this.grp_styles2tex.Items.Add(this.Btn_New_Simple);
             this.grp_styles2tex.Items.Add(this.Btn_New_Multiple);
-            this.grp_styles2tex.Items.Add(this.Btn_Styles);
+            this.grp_styles2tex.Items.Add(this.Btn_Supported_Styles);
             this.grp_styles2tex.Items.Add(this.Btn_Save_Directory);
             this.grp_styles2tex.Items.Add(this.Btn_Overwrite);
             this.grp_styles2tex.Items.Add(this.Dd_Encoding);
@@ -89,13 +89,13 @@ namespace Styles2Tex
             this.Btn_New_Multiple.ShowImage = true;
             this.Btn_New_Multiple.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_New_Multiple_Click);
             // 
-            // Btn_Styles
+            // Btn_Supported_Styles
             // 
-            this.Btn_Styles.Image = global::Styles2Tex.Properties.Resources.styles;
-            this.Btn_Styles.Label = "Styles";
-            this.Btn_Styles.Name = "Btn_Styles";
-            this.Btn_Styles.ShowImage = true;
-            this.Btn_Styles.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_Styles_Click);
+            this.Btn_Supported_Styles.Image = global::Styles2Tex.Properties.Resources.styles;
+            this.Btn_Supported_Styles.Label = "Supported styles";
+            this.Btn_Supported_Styles.Name = "Btn_Supported_Styles";
+            this.Btn_Supported_Styles.ShowImage = true;
+            this.Btn_Supported_Styles.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Btn_Supported_Styles_Click);
             // 
             // Btn_Save_Directory
             // 
@@ -123,7 +123,7 @@ namespace Styles2Tex
             // 
             // Btn_More_Settings
             // 
-            this.Btn_More_Settings.Image = global::Styles2Tex.Properties.Resources.settings;
+            this.Btn_More_Settings.Image = global::Styles2Tex.Properties.Resources.more_settings;
             this.Btn_More_Settings.Label = "More settings";
             this.Btn_More_Settings.Name = "Btn_More_Settings";
             this.Btn_More_Settings.ShowImage = true;
@@ -161,7 +161,7 @@ namespace Styles2Tex
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_New_Multiple;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_More_Settings;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_About;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_Styles;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_Supported_Styles;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_Save_Directory;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Btn_Overwrite;
         internal RibbonDropDown Dd_Encoding;
