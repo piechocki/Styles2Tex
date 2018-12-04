@@ -53,13 +53,13 @@
             // Ll_Github
             // 
             this.Ll_Github.AutoSize = true;
-            this.Ll_Github.LinkArea = new System.Windows.Forms.LinkArea(42, 6);
-            this.Ll_Github.Location = new System.Drawing.Point(8, 101);
+            this.Ll_Github.LinkArea = new System.Windows.Forms.LinkArea(31, 6);
+            this.Ll_Github.Location = new System.Drawing.Point(7, 101);
             this.Ll_Github.Name = "Ll_Github";
-            this.Ll_Github.Size = new System.Drawing.Size(250, 17);
+            this.Ll_Github.Size = new System.Drawing.Size(310, 17);
             this.Ll_Github.TabIndex = 2;
             this.Ll_Github.TabStop = true;
-            this.Ll_Github.Text = "Get the latest version and report bugs on GitHub.";
+            this.Ll_Github.Text = "Get updates and report bugs on GitHub. Latest version is {0}.";
             this.Ll_Github.UseCompatibleTextRendering = true;
             this.Ll_Github.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Ll_Github_LinkClicked);
             // 
@@ -89,7 +89,7 @@
             this.Rtb_License.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Rtb_License.Font = new System.Drawing.Font("Consolas", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Rtb_License.Location = new System.Drawing.Point(7, 171);
-            this.Rtb_License.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Rtb_License.Margin = new System.Windows.Forms.Padding(2);
             this.Rtb_License.Name = "Rtb_License";
             this.Rtb_License.ReadOnly = true;
             this.Rtb_License.Size = new System.Drawing.Size(416, 103);
@@ -99,10 +99,10 @@
             // Btn_Ok
             // 
             this.Btn_Ok.Location = new System.Drawing.Point(371, 292);
-            this.Btn_Ok.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Btn_Ok.Margin = new System.Windows.Forms.Padding(2);
             this.Btn_Ok.Name = "Btn_Ok";
             this.Btn_Ok.Size = new System.Drawing.Size(52, 22);
-            this.Btn_Ok.TabIndex = 8;
+            this.Btn_Ok.TabIndex = 0;
             this.Btn_Ok.Text = "OK";
             this.Btn_Ok.UseVisualStyleBackColor = true;
             this.Btn_Ok.Click += new System.EventHandler(this.Btn_Ok_Click);
@@ -111,7 +111,7 @@
             // 
             this.Ll_License.AutoSize = true;
             this.Ll_License.LinkArea = new System.Windows.Forms.LinkArea(33, 11);
-            this.Ll_License.Location = new System.Drawing.Point(8, 152);
+            this.Ll_License.Location = new System.Drawing.Point(7, 152);
             this.Ll_License.Name = "Ll_License";
             this.Ll_License.Size = new System.Drawing.Size(235, 17);
             this.Ll_License.TabIndex = 9;
@@ -124,7 +124,7 @@
             // 
             this.Ll_Copyright_Logo.AutoSize = true;
             this.Ll_Copyright_Logo.LinkArea = new System.Windows.Forms.LinkArea(13, 7);
-            this.Ll_Copyright_Logo.Location = new System.Drawing.Point(8, 135);
+            this.Ll_Copyright_Logo.Location = new System.Drawing.Point(7, 135);
             this.Ll_Copyright_Logo.Name = "Ll_Copyright_Logo";
             this.Ll_Copyright_Logo.Size = new System.Drawing.Size(209, 17);
             this.Ll_Copyright_Logo.TabIndex = 10;

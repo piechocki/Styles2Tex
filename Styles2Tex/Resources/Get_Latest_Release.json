@@ -1,0 +1,11 @@
+query {
+  repository(owner: "piechocki", name: "Styles2Tex") {
+    tags: refs(refPrefix: "refs/tags/", first: 1) {
+      edges {
+        node {
+          name
+        }
+      }
+    }
+  }
+}
