@@ -19,45 +19,9 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full
 
 ### Installing
 
-Unfortunately you can't find this Add-in in the Office Store of Microsoft where you can get many extensions for Word. But the good news is, that installation of an external Word Add-in is very simple anyway. Just download the latest compiled version that is located in the folder "Installer" as a zip file. Unzip the file and double click
+Unfortunately you can't find this Add-in in the Office Store of Microsoft where you can get many extensions for Word. But the good news is, that installation of an external Word Add-in is very simple anyway. Just download the latest compiled version that is located in the folder "Installer" as a zip file. Unzip the file and double click the file "setup". Confirm the upcoming dialog whether you like to install the Add-in although it is from an unknown publisher. If the installation was successful, you should see the following message:
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+Furthermore when you start Word the next time, you can recognize the "Styles2Tex" group on the ribbon tab "Add-ins".
 
 ## Authors
 
