@@ -285,10 +285,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Styles2Tex_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Styles2Tex_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>47DA0B5C348FB56A2325385FEC27CFB7FA48B12E</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>EB99F4A3FC8CB5FEEC59E17AB0E2FDFC855A768C</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>icon.ico</ApplicationIcon>

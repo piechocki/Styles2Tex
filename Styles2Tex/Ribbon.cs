@@ -20,7 +20,8 @@ namespace Styles2Tex
         readonly Dictionary<string, string> default_config = new Dictionary<string, string>() {
             { "overwrite", "False" },
             { "save_directory", "" },
-            { "encoding", "" }
+            { "encoding", "" },
+            { "italic", "False" }
         };
 
         private void Ribbon_Load(object sender, RibbonUIEventArgs e)
@@ -116,6 +117,9 @@ namespace Styles2Tex
             {
                 case "overwrite":
                     string test_convert = Convert.ToBoolean(el.Value).ToString();
+                    break;
+                case "italic":
+                    string test_convert2 = Convert.ToBoolean(el.Value).ToString();
                     break;
                 case "save_directory":
                     if (el.Value.Length != 0 && !Directory.Exists(el.Value))

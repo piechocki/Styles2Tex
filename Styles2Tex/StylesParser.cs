@@ -25,7 +25,7 @@ namespace Styles2Tex
             string path;
             string para;
             string file = "";
-            Range ranActRange;
+            Range para_range;
             Document doc = word.ActiveDocument;
             DateTime begin = DateTime.Now;
             Dictionary<Enum, string> local_names = Get_Local_Names(doc);
@@ -64,8 +64,8 @@ namespace Styles2Tex
                     status_refreshed = DateTime.Now;
                 }
 
-                ranActRange = doc.Paragraphs[i].Range;
-                para = Text_Format(ranActRange.Text);
+                para_range = doc.Paragraphs[i].Range;
+                para = Text_Format(para_range.Text);
                 para_style = doc.Paragraphs[i].get_Style().NameLocal;
                 txt = new StringBuilder();
 
@@ -113,6 +113,11 @@ namespace Styles2Tex
                 }
                 else if (para_style == local_names[WdBuiltinStyle.wdStyleNormal])
                 {
+                    if (System.Convert.ToBoolean(config["italic"]))
+                    {
+                        para = Get_Italic_Format(para_range);
+                    }
+
                     // Check if carriage return characters after the paragraph are required
                     if (i < doc.Paragraphs.Count &&
                         doc.Paragraphs[i + 1].get_Style().NameLocal == local_names[WdBuiltinStyle.wdStyleNormal] &&
@@ -139,7 +144,7 @@ namespace Styles2Tex
                         txt.AppendLine("\\begin{itemize}");
                     }
                     // Add the item
-                    txt.AppendLine("\\item " + Text_Format(ranActRange.ListParagraphs[1].Range.Text));
+                    txt.AppendLine("\\item " + Text_Format(para_range.ListParagraphs[1].Range.Text));
 
                     if (doc.Paragraphs[i - 1].get_Style().NameLocal == local_names[WdBuiltinStyle.wdStyleListParagraph] &&
                         doc.Paragraphs[i + 1].get_Style().NameLocal != local_names[WdBuiltinStyle.wdStyleListParagraph])
@@ -168,8 +173,45 @@ namespace Styles2Tex
             final_status.AppendFormat(" {0} paragraphs were skipped ({1} non built-in styles, {2} built-in but not supported styles).", not_builtin + not_supported, not_builtin, not_supported);
             final_status.AppendFormat(" Runtime: {0} seconds", System.Convert.ToString((DateTime.Now - begin).Seconds));
             word.StatusBar = final_status.ToString();
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
             word.StatusBar = "";
+        }
+
+        private string Get_Italic_Format(Range para_range)
+        {
+            StringBuilder para = new StringBuilder();
+            StringBuilder chars_italic = new StringBuilder();
+            StringBuilder chars_non_italic = new StringBuilder();
+
+            foreach (Range w in para_range.Words)
+            {
+                if (w.Font.Italic != 0)
+                {
+                    if (chars_non_italic.Length != 0)
+                    {
+                        para.Append(chars_non_italic.ToString());
+                        chars_non_italic = new StringBuilder();
+                    }
+                    chars_italic.Append(w.Text.Replace("\r", ""));
+                }
+                else
+                {
+                    if (chars_italic.Length != 0)
+                    {
+                        para.Append("\\emph{").Append(chars_italic.ToString()).Append("}");
+                        chars_italic = new StringBuilder();
+                    }
+                    chars_non_italic.Append(w.Text.Replace("\r", ""));
+                }
+            }
+
+            if (chars_italic.Length != 0)
+            {
+                para.Append("\\emph{").Append(chars_italic.ToString()).Append("}");
+            }
+            para.Append(chars_non_italic.ToString());
+
+            return para.ToString();
         }
 
         public Dictionary<Enum, string> Get_Local_Names(Document doc)
