@@ -8,17 +8,39 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Resources;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace Styles2Tex.View
 {
     public partial class About : Form
     {
-        string latest_release = "1.0.0.1";
+        Version last_release;
+        Version this_version;
+
         public About()
         {
             InitializeComponent();
-            L_Version.Text = string.Format(L_Version.Text, Get_Version_Number(), DateTime.Now.Year);
-            Ll_Github.Text = string.Format(Ll_Github.Text, latest_release);
+            this_version = new Version(Get_Version_Number());
+            L_Version.Text = string.Format(L_Version.Text, this_version, DateTime.Now.Year);
+            Show();
+            Update();
+            Task<string> lr_task = Task.Run(() => Get_Last_Release_Async());            
+            lr_task.Wait();
+            string lr = lr_task.Result;
+            if (lr != "")
+            {
+                last_release = new Version(lr);
+                if (last_release.CompareTo(this_version) > 0)
+                {
+                    L_Update.Text = "An update is available. Last release is " + last_release + ".";
+                }
+                else
+                {
+                    L_Update.Text = "You are using the latest version already.";
+                }
+                Update();
+            }  
         }
 
         private string Get_Version_Number()
@@ -53,31 +75,25 @@ namespace Styles2Tex.View
             System.Diagnostics.Process.Start("https://icons8.com/");
         }
 
-        private async void Get_Latest_ReleaseAsync()
+        private async Task<string> Get_Last_Release_Async()
         {
-            HttpClient client = new HttpClient();
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;            
-
-            string query = File.OpenText("C:\\Users\\MartinPiechocki\\Documents\\GitHub\\Styles2Tex\\Styles2Tex\\Resources\\Get_Latest_Release.json").ReadToEnd();
+            string query = Encoding.Default.GetString(Properties.Resources.Get_Latest_Release);
             string token = Get_Token();
 
-            // Create the HttpContent for the form to be posted.
-            FormUrlEncodedContent requestContent = new FormUrlEncodedContent(new[] {
-                new KeyValuePair<string, string>("-H", "\"Authorization: bearer " + token + "\""),
-                new KeyValuePair<string, string>("-X", "POST"),
-                new KeyValuePair<string, string>("-d", "\"{\"query\": \"" + query + "\"}")
-            });
+            Dictionary<string, string> requestContent = new Dictionary<string, string>(){
+                { "Authorization", "bearer " + token }
+            };
 
-            // Get the response.
-            HttpResponseMessage response = await client.PostAsync("https://api.github.com/graphql", requestContent);
-
-            // Get the response content.
-            HttpContent responseContent = response.Content;
-
-            using (var reader = new StreamReader(await responseContent.ReadAsStreamAsync()))
+            try
             {
-                // Write the output.
-                latest_release = await reader.ReadToEndAsync();
+                Utility.SimpleGraphQLClient client = new Utility.SimpleGraphQLClient("https://api.github.com/graphql");
+                Task<JObject> result = client.ExecuteAsync(query, additionalHeaders: requestContent);
+                JObject json = await result;
+                return ((string)json["data"]["repository"]["tags"]["edges"][0]["node"]["name"]).Replace("v", "");
+            }
+            catch (Exception)
+            {
+                return "";
             }
         }
 
