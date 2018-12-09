@@ -16,12 +16,14 @@ namespace Styles2Tex
         StylesParser sp;
         Dictionary<string, string> config;
         static string config_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Styles2Tex\\settings.xml");
-        // TODO: implement more config elements - encoding, labels, filenames, abstract
         readonly Dictionary<string, string> default_config = new Dictionary<string, string>() {
             { "overwrite", "False" },
             { "save_directory", "" },
             { "encoding", "" },
-            { "italic", "False" }
+            { "emphasize", "False" },
+            { "abstract", "False" },
+            { "labels", "True" },
+            { "naming", "sec$" }
         };
 
         private void Ribbon_Load(object sender, RibbonUIEventArgs e)
@@ -75,7 +77,13 @@ namespace Styles2Tex
 
         private void Btn_More_Settings_Click(object sender, RibbonControlEventArgs e)
         {
-            return;
+            Settings settings = new View.Settings(config);
+            DialogResult dr = settings.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                config = settings.new_config;
+                Save_Config();
+            }
         }
 
         private Dictionary<string, string> Load_Config()

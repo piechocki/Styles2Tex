@@ -57,7 +57,7 @@ namespace Styles2Tex.View
 
         private void Btn_Ok_Click(object sender, EventArgs e)
         {
-            Hide();
+            Close();
         }
 
         private void Ll_License_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
