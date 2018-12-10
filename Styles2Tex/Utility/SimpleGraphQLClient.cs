@@ -21,24 +21,24 @@ namespace Styles2Tex.Utility
 
         public async Task<JObject> ExecuteAsync(string query, object variables = null, Dictionary<string, string> additionalHeaders = null, int timeout = 0)
         {
-            var request = new RestRequest("/", Method.POST);
-            request.Timeout = timeout;
+            var rr = new RestRequest("/", Method.POST);
+            rr.Timeout = timeout;
 
             if (additionalHeaders != null && additionalHeaders.Count > 0)
             {
                 foreach (var additionalHeader in additionalHeaders)
                 {
-                    request.AddHeader(additionalHeader.Key, additionalHeader.Value);
+                    rr.AddHeader(additionalHeader.Key, additionalHeader.Value);
                 }
             }
 
-            request.AddJsonBody(new
+            rr.AddJsonBody(new
             {
                 query = query,
                 variables = variables
             });
 
-            return JObject.Parse(_client.Execute(request).Content);
+            return JObject.Parse(_client.Execute(rr).Content);
         }
     }
 }

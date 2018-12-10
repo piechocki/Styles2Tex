@@ -25,6 +25,16 @@ namespace Styles2Tex
             { "labels", "True" },
             { "naming", "sec$" }
         };
+        readonly Dictionary<string, Type> field_types = new Dictionary<string, Type>()
+        {
+            { "overwrite", typeof(bool) },
+            { "save_directory", typeof(string) },
+            { "encoding", typeof(string) },
+            { "emphasize", typeof(bool) },
+            { "abstract", typeof(bool) },
+            { "labels", typeof(bool) },
+            { "naming", typeof(string) }
+        };
 
         private void Ribbon_Load(object sender, RibbonUIEventArgs e)
         {
@@ -121,27 +131,23 @@ namespace Styles2Tex
 
         private void Validate_Settings(XElement el)
         {
-            switch (el.Name.LocalName)
+            if (field_types[el.Name.LocalName] == typeof(bool))
             {
-                case "overwrite":
-                    string test_convert = Convert.ToBoolean(el.Value).ToString();
-                    break;
-                case "italic":
-                    string test_convert2 = Convert.ToBoolean(el.Value).ToString();
-                    break;
-                case "save_directory":
-                    if (el.Value.Length != 0 && !Directory.Exists(el.Value))
-                    {
-                        Directory.CreateDirectory(el.Value);
-                        Directory.Delete(el.Value);
-                    }
-                    break;
-                case "encoding":
-                    if (el.Value.Length != 0)
-                    {
-                        string test_encoding = Get_Encodings()[el.Value];
-                    }
-                    break;
+                string test_convert = Convert.ToBoolean(el.Value).ToString();
+            }
+
+            if (el.Name.LocalName == "save_directory" && el.Value.Length != 0 && !Directory.Exists(el.Value))
+            {
+                Directory.CreateDirectory(el.Value);
+                Directory.Delete(el.Value);
+            }
+            else if (el.Name.LocalName == "encoding" && el.Value.Length != 0 && !Get_Encodings().ContainsKey(el.Value))
+            {
+                throw new Exception("Encoding not found.");
+            }
+            else if (el.Name.LocalName == "naming" && el.Value.Count(c => c == '$') != 1)
+            {
+                throw new Exception("Naming must not contain the character '$' more or less than one time.");
             }
         }
         
