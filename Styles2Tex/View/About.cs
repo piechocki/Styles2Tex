@@ -28,7 +28,11 @@ namespace Styles2Tex.View
             Task<string> lr_task = Task.Run(() => Get_Last_Release_Async());            
             lr_task.Wait();
             string lr = lr_task.Result;
-            if (lr != "")
+            if (lr == "")
+            {
+                L_Update.Text = "An error occurred while checking for an update. Try again later.";
+            }
+            else
             {
                 last_release = new Version(lr);
                 if (last_release.CompareTo(this_version) > 0)
@@ -40,7 +44,7 @@ namespace Styles2Tex.View
                     L_Update.Text = "You are using the latest version already.";
                 }
                 Update();
-            }  
+            }
         }
 
         private string Get_Version_Number()

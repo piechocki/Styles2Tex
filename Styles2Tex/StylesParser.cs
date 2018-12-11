@@ -19,7 +19,7 @@ namespace Styles2Tex
             WdBuiltinStyle.wdStyleListParagraph
         };
 
-        public void Convert(Microsoft.Office.Interop.Word.Application word, Dictionary<string, string> config)
+        public void Convert_Styles(Microsoft.Office.Interop.Word.Application word, Dictionary<string, string> config)
         {
             StringBuilder txt;
             string path;
@@ -84,13 +84,13 @@ namespace Styles2Tex
                     if (file_txt.Length != 0)
                     {
                         // Save the previous file_txt if it's not empty
-                        written_files += Save_File(file, file_txt.ToString(), System.Convert.ToBoolean(config["overwrite"]), config["encoding"]) ? 1 : 0;
+                        written_files += Save_File(file, file_txt.ToString(), Convert.ToBoolean(config["overwrite"]), config["encoding"]) ? 1 : 0;
                         // Clean the file_text variable for the next section
                         file_txt = new StringBuilder();
                         sec_number += 1;
                     }
 
-                    if (sec_number == 0)
+                    if (sec_number == 0 && Convert.ToBoolean(config["abstract"]))
                     {
                         // Exception for first file (abstract)
                         file = Path.Combine(path, "abstract.tex");
@@ -98,22 +98,27 @@ namespace Styles2Tex
                     }
                     else
                     {
+                        if (sec_number == 0)
+                        {
+                            // Increment sec number if abstract option is set to false and it's the first section
+                            sec_number += 1;
+                        }
                         // All other files will be saved with its section number
-                        file = Path.Combine(path, "sec" + System.Convert.ToString(sec_number) + ".tex");
-                        txt.AppendLine("\\section{" + para + "} \\label{" + Label_Format(para) + "}");
+                        file = Path.Combine(path, config["naming"].Replace("$", Convert.ToString(sec_number)) + ".tex");
+                        txt.Append("\\section{" + para + "}").AppendLine(Get_Label(para, config));
                     }
                 }
                 else if (para_style == local_names[WdBuiltinStyle.wdStyleHeading2])
                 {
-                    txt.AppendLine("\\subsection{" + para + "} \\label{" + Label_Format(para) + "}");
+                    txt.Append("\\subsection{" + para + "}").AppendLine(Get_Label(para, config));
                 }
                 else if (para_style == local_names[WdBuiltinStyle.wdStyleHeading3])
                 {
-                    txt.AppendLine("\\subsubsection{" + para + "} \\label{" + Label_Format(para) + "}");
+                    txt.Append("\\subsubsection{" + para + "}").AppendLine(Get_Label(para, config));
                 }
                 else if (para_style == local_names[WdBuiltinStyle.wdStyleNormal])
                 {
-                    if (System.Convert.ToBoolean(config["italic"]))
+                    if (Convert.ToBoolean(config["emphasize"]))
                     {
                         para = Get_Italic_Format(para_range);
                     }
@@ -136,21 +141,22 @@ namespace Styles2Tex
                 {
 
                 }
-                else if (para_style == local_names[WdBuiltinStyle.wdStyleListParagraph])
+                else if (para_style == local_names[WdBuiltinStyle.wdStyleListParagraph] &&
+                         (para_range.ListFormat.ListType == WdListType.wdListSimpleNumbering || para_range.ListFormat.ListType == WdListType.wdListBullet))
                 {
-                    if (doc.Paragraphs[i - 1].get_Style().NameLocal != local_names[WdBuiltinStyle.wdStyleListParagraph])
+                    if (i == 1 || doc.Paragraphs[i - 1].get_Style().NameLocal != local_names[WdBuiltinStyle.wdStyleListParagraph])
                     {
                         // If it's the first item in itemize, first add an opening bracket
-                        txt.AppendLine("\\begin{itemize}");
+                        txt.AppendLine("\\begin{" + ((para_range.ListFormat.ListType == WdListType.wdListSimpleNumbering) ? "enumerate" : "itemize") + "}");
                     }
                     // Add the item
-                    txt.AppendLine("\\item " + Text_Format(para_range.ListParagraphs[1].Range.Text));
+                    txt.AppendLine("  \\item " + Text_Format(para_range.ListParagraphs[1].Range.Text));
 
-                    if (doc.Paragraphs[i - 1].get_Style().NameLocal == local_names[WdBuiltinStyle.wdStyleListParagraph] &&
-                        doc.Paragraphs[i + 1].get_Style().NameLocal != local_names[WdBuiltinStyle.wdStyleListParagraph])
+                    if ((i == 1 || doc.Paragraphs[i - 1].get_Style().NameLocal == local_names[WdBuiltinStyle.wdStyleListParagraph]) &&
+                        (i == para_count || doc.Paragraphs[i + 1].get_Style().NameLocal != local_names[WdBuiltinStyle.wdStyleListParagraph]))
                     {
                         // If it's the last item in itemize, finally close the bracket
-                        txt.AppendLine("\\end{itemize}");
+                        txt.AppendLine("\\end{" + ((para_range.ListFormat.ListType == WdListType.wdListSimpleNumbering) ? "enumerate" : "itemize") + "}");
                     }
                 }
                 else
@@ -166,15 +172,27 @@ namespace Styles2Tex
             }
 
             // Save the last file_txt if the parsing of the word is finished
-            written_files += Save_File(file, file_txt.ToString(), System.Convert.ToBoolean(config["overwrite"]), config["encoding"]) ? 1 : 0;
+            written_files += Save_File(file, file_txt.ToString(), Convert.ToBoolean(config["overwrite"]), config["encoding"]) ? 1 : 0;
 
             StringBuilder final_status = new StringBuilder("Document processed successfully.");
             final_status.AppendFormat(" {0} tex files has been written.", written_files);
             final_status.AppendFormat(" {0} paragraphs were skipped ({1} non built-in styles, {2} built-in but not supported styles).", not_builtin + not_supported, not_builtin, not_supported);
-            final_status.AppendFormat(" Runtime: {0} seconds", System.Convert.ToString((DateTime.Now - begin).Seconds));
+            final_status.AppendFormat(" Runtime: {0} seconds", Convert.ToString((DateTime.Now - begin).Seconds));
             word.StatusBar = final_status.ToString();
             Thread.Sleep(5000);
             word.StatusBar = "";
+        }
+
+        private string Get_Label(string para, Dictionary<string, string> config)
+        {
+            if (Convert.ToBoolean(config["labels"]))
+            {
+                return " \\label{" + Label_Format(para) + "}";
+            }
+            else
+            {
+                return "";
+            }
         }
 
         private string Get_Italic_Format(Range para_range)
@@ -262,11 +280,16 @@ namespace Styles2Tex
         }
 
         private bool Save_File(string file, string file_txt, bool overwrite, string encoding)
-        {
+        {            
             if (!File.Exists(file) || overwrite)
             {
                 try
                 {
+                    if (file == "")
+                    {
+                        throw new Exception("For each section a top level heading ('Heading 1') is mandatory.");
+                    }
+
                     using (StreamWriter sw = new StreamWriter(File.Open(file, FileMode.Create), Encoding.GetEncoding(encoding)))
                     {
                         sw.Write(file_txt);
@@ -275,7 +298,7 @@ namespace Styles2Tex
                 }
                 catch(Exception e)
                 {
-                    MessageBox.Show(string.Format("At least one tex file could not be saved. Reason: {0}", e.Message), "Styles2Tex", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(string.Format("At least one tex file could not be saved.\r\rError: {0}", e.Message), "Styles2Tex", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             return false;

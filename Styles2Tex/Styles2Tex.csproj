@@ -30,10 +30,10 @@
     <DefineConstants>VSTO40</DefineConstants>
     <IsWebBootstrapper>False</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>C:\Users\marti\Documents\Styles2Tex\</PublishUrl>
+    <PublishUrl>C:\Users\MartinPiechocki\Documents\Styles2Tex Kompilat\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.1.5</ApplicationVersion>
+    <ApplicationVersion>1.0.2.0</ApplicationVersion>
     <AutoIncrementApplicationRevision>false</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>7</UpdateInterval>
@@ -284,6 +284,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\icons8-maintenance-80.png" />
+    <None Include="Resources\icons8-test-tube-100.png" />
     <None Include="Resources\icon.png" />
     <None Include="Resources\icons8-live-ordner-80.png" />
     <None Include="Resources\icons8-schalter-aus-100.png" />

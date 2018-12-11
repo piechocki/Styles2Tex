@@ -52,7 +52,7 @@ namespace Styles2Tex
 
         private void Btn_New_Simple_Click(object sender, RibbonControlEventArgs e)
         {
-            sp.Convert(word, config);
+            sp.Convert_Styles(word, config);
         }
 
         private void Btn_New_Multiple_Click(object sender, RibbonControlEventArgs e)
@@ -109,7 +109,7 @@ namespace Styles2Tex
                 Dictionary<string, string> config_from_file = Get_Dictionary_Copy(default_config);
                 try
                 {
-                    foreach (var el in rootElement.Elements())
+                    foreach (XElement el in rootElement.Elements())
                     {
                         Validate_Settings(el);
                         config_from_file[el.Name.LocalName] = el.Value;
@@ -117,7 +117,7 @@ namespace Styles2Tex
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(string.Format("The settings of the Styles2Tex addin could not be loaded. Reason: {0}\n\nThe addin starts with default settings now.", e.Message), "Styles2Tex", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(string.Format("The settings of the Styles2Tex addin could not be loaded.\rError: {0}\r\rThe addin starts with default settings now.", e.Message), "Styles2Tex", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return Get_Dictionary_Copy(default_config);
                 }
                 return config_from_file;
@@ -153,7 +153,7 @@ namespace Styles2Tex
         
         private void Btn_Save_Directory_Click(object sender, RibbonControlEventArgs e)
         {
-            using (var fbd = new FolderBrowserDialog())
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
                 fbd.SelectedPath = config["save_directory"];
                 DialogResult result = fbd.ShowDialog();

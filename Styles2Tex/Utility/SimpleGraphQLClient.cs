@@ -19,14 +19,14 @@ namespace Styles2Tex.Utility
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
         }
 
-        public async Task<JObject> ExecuteAsync(string query, object variables = null, Dictionary<string, string> additionalHeaders = null, int timeout = 0)
+        public Task<JObject> ExecuteAsync(string query, object variables = null, Dictionary<string, string> additionalHeaders = null, int timeout = 0)
         {
-            var rr = new RestRequest("/", Method.POST);
+            RestRequest rr = new RestRequest("/", Method.POST);
             rr.Timeout = timeout;
 
             if (additionalHeaders != null && additionalHeaders.Count > 0)
             {
-                foreach (var additionalHeader in additionalHeaders)
+                foreach (KeyValuePair<string, string> additionalHeader in additionalHeaders)
                 {
                     rr.AddHeader(additionalHeader.Key, additionalHeader.Value);
                 }
@@ -38,7 +38,9 @@ namespace Styles2Tex.Utility
                 variables = variables
             });
 
-            return JObject.Parse(_client.Execute(rr).Content);
+            TaskCompletionSource<JObject> tcs = new TaskCompletionSource<JObject>();
+            tcs.SetResult(JObject.Parse(_client.Execute(rr).Content));
+            return tcs.Task;
         }
     }
 }

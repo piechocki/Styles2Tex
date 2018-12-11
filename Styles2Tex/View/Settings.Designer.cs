@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Btn_Save = new System.Windows.Forms.Button();
             this.Btn_Cancel = new System.Windows.Forms.Button();
             this.Cb_Italic = new System.Windows.Forms.CheckBox();
@@ -36,14 +37,17 @@
             this.Gb_Beta = new System.Windows.Forms.GroupBox();
             this.Tb_Naming = new System.Windows.Forms.TextBox();
             this.L_Naming = new System.Windows.Forms.Label();
+            this.Tt_Naming = new System.Windows.Forms.ToolTip(this.components);
+            this.Tt_Labels = new System.Windows.Forms.ToolTip(this.components);
+            this.Tt_Abstract = new System.Windows.Forms.ToolTip(this.components);
+            this.Tt_Italic = new System.Windows.Forms.ToolTip(this.components);
             this.Gb_Beta.SuspendLayout();
             this.SuspendLayout();
             // 
             // Btn_Save
             // 
-            this.Btn_Save.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Btn_Save.Location = new System.Drawing.Point(228, 245);
-            this.Btn_Save.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Btn_Save.Margin = new System.Windows.Forms.Padding(2);
             this.Btn_Save.Name = "Btn_Save";
             this.Btn_Save.Size = new System.Drawing.Size(74, 21);
             this.Btn_Save.TabIndex = 0;
@@ -55,7 +59,7 @@
             // 
             this.Btn_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Btn_Cancel.Location = new System.Drawing.Point(306, 245);
-            this.Btn_Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Btn_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.Btn_Cancel.Name = "Btn_Cancel";
             this.Btn_Cancel.Size = new System.Drawing.Size(74, 21);
             this.Btn_Cancel.TabIndex = 1;
@@ -67,7 +71,7 @@
             // 
             this.Cb_Italic.AutoSize = true;
             this.Cb_Italic.Location = new System.Drawing.Point(17, 27);
-            this.Cb_Italic.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cb_Italic.Margin = new System.Windows.Forms.Padding(2);
             this.Cb_Italic.Name = "Cb_Italic";
             this.Cb_Italic.Size = new System.Drawing.Size(179, 17);
             this.Cb_Italic.TabIndex = 2;
@@ -79,7 +83,7 @@
             // 
             this.Cb_Abstract.AutoSize = true;
             this.Cb_Abstract.Location = new System.Drawing.Point(28, 26);
-            this.Cb_Abstract.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cb_Abstract.Margin = new System.Windows.Forms.Padding(2);
             this.Cb_Abstract.Name = "Cb_Abstract";
             this.Cb_Abstract.Size = new System.Drawing.Size(177, 17);
             this.Cb_Abstract.TabIndex = 3;
@@ -91,7 +95,7 @@
             // 
             this.Cb_Labels.AutoSize = true;
             this.Cb_Labels.Location = new System.Drawing.Point(28, 54);
-            this.Cb_Labels.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cb_Labels.Margin = new System.Windows.Forms.Padding(2);
             this.Cb_Labels.Name = "Cb_Labels";
             this.Cb_Labels.Size = new System.Drawing.Size(156, 17);
             this.Cb_Labels.TabIndex = 4;
@@ -103,18 +107,18 @@
             // 
             this.Gb_Beta.Controls.Add(this.Cb_Italic);
             this.Gb_Beta.Location = new System.Drawing.Point(11, 134);
-            this.Gb_Beta.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Gb_Beta.Margin = new System.Windows.Forms.Padding(2);
             this.Gb_Beta.Name = "Gb_Beta";
-            this.Gb_Beta.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Gb_Beta.Padding = new System.Windows.Forms.Padding(2);
             this.Gb_Beta.Size = new System.Drawing.Size(369, 63);
             this.Gb_Beta.TabIndex = 5;
             this.Gb_Beta.TabStop = false;
-            this.Gb_Beta.Text = "Beta functions";
+            this.Gb_Beta.Text = "Beta features";
             // 
             // Tb_Naming
             // 
             this.Tb_Naming.Location = new System.Drawing.Point(270, 79);
-            this.Tb_Naming.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Tb_Naming.Margin = new System.Windows.Forms.Padding(2);
             this.Tb_Naming.Name = "Tb_Naming";
             this.Tb_Naming.Size = new System.Drawing.Size(96, 20);
             this.Tb_Naming.TabIndex = 6;
@@ -142,7 +146,7 @@
             this.Controls.Add(this.Cb_Abstract);
             this.Controls.Add(this.Btn_Cancel);
             this.Controls.Add(this.Btn_Save);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Settings";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -164,5 +168,9 @@
         private System.Windows.Forms.GroupBox Gb_Beta;
         private System.Windows.Forms.TextBox Tb_Naming;
         private System.Windows.Forms.Label L_Naming;
+        private System.Windows.Forms.ToolTip Tt_Naming;
+        private System.Windows.Forms.ToolTip Tt_Labels;
+        private System.Windows.Forms.ToolTip Tt_Abstract;
+        private System.Windows.Forms.ToolTip Tt_Italic;
     }
 }
