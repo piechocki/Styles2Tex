@@ -27,7 +27,7 @@ Furthermore when you start Word the next time, you can recognize the "Styles2Tex
 
 * **M. Piechocki** - *Initial work* - [piechocki](https://github.com/piechocki)
 
-See also the list of [contributors](https://github.com/piechocki/InvarianceHypothesis/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/piechocki/Styles2Tex/contributors) who participated in this project.
 
 ## License
 
