@@ -19,7 +19,7 @@ namespace Styles2Tex
             WdBuiltinStyle.wdStyleListParagraph
         };
 
-        public void Convert_Styles(Microsoft.Office.Interop.Word.Application word, Dictionary<string, string> config)
+        public void Convert_Styles(Microsoft.Office.Interop.Word.Application word, Dictionary<string, string> config, bool multiple = true)
         {
             StringBuilder txt;
             string path;
@@ -81,16 +81,19 @@ namespace Styles2Tex
 
                 if (para_style == local_names[WdBuiltinStyle.wdStyleHeading1])
                 {
-                    if (file_txt.Length != 0)
+                    if (file_txt.Length != 0 && multiple)
                     {
                         // Save the previous file_txt if it's not empty
-                        written_files += Save_File(file, file_txt.ToString(), Convert.ToBoolean(config["overwrite"]), config["encoding"]) ? 1 : 0;
+                        if (Save_File(file, file_txt.ToString(), Convert.ToBoolean(config["overwrite"]), config["encoding"]))
+                        {
+                            written_files += 1;
+                        }
                         // Clean the file_text variable for the next section
                         file_txt = new StringBuilder();
                         sec_number += 1;
                     }
 
-                    if (sec_number == 0 && Convert.ToBoolean(config["abstract"]))
+                    if (sec_number == 0 && Convert.ToBoolean(config["abstract"]) && multiple)
                     {
                         // Exception for first file (abstract)
                         file = Path.Combine(path, "abstract.tex");
@@ -172,15 +175,17 @@ namespace Styles2Tex
             }
 
             // Save the last file_txt if the parsing of the word is finished
-            written_files += Save_File(file, file_txt.ToString(), Convert.ToBoolean(config["overwrite"]), config["encoding"]) ? 1 : 0;
+            if (Save_File(file, file_txt.ToString(), Convert.ToBoolean(config["overwrite"]), config["encoding"]))
+            {
+                written_files += 1;
+            }
 
             StringBuilder final_status = new StringBuilder("Document processed successfully.");
-            final_status.AppendFormat(" {0} tex files has been written.", written_files);
+            final_status.AppendFormat(" {0} tex file(s) has been written.", written_files);
             final_status.AppendFormat(" {0} paragraphs were skipped ({1} non built-in styles, {2} built-in but not supported styles).", not_builtin + not_supported, not_builtin, not_supported);
             final_status.AppendFormat(" Runtime: {0} seconds", Convert.ToString((DateTime.Now - begin).Seconds));
-            word.StatusBar = final_status.ToString();
-            Thread.Sleep(5000);
             word.StatusBar = "";
+            MessageBox.Show(final_status.ToString(), "Styles2Tex", MessageBoxButtons.OK, MessageBoxIcon.Information);            
         }
 
         private string Get_Label(string para, Dictionary<string, string> config)

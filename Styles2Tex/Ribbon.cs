@@ -52,12 +52,12 @@ namespace Styles2Tex
 
         private void Btn_New_Simple_Click(object sender, RibbonControlEventArgs e)
         {
-            sp.Convert_Styles(word, config);
+            sp.Convert_Styles(word, config, false);
         }
 
         private void Btn_New_Multiple_Click(object sender, RibbonControlEventArgs e)
         {
-            return;
+            sp.Convert_Styles(word, config);
         }
 
         private void Btn_About_Click(object sender, RibbonControlEventArgs e)

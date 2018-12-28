@@ -85,9 +85,9 @@
             this.Cb_Abstract.Location = new System.Drawing.Point(28, 26);
             this.Cb_Abstract.Margin = new System.Windows.Forms.Padding(2);
             this.Cb_Abstract.Name = "Cb_Abstract";
-            this.Cb_Abstract.Size = new System.Drawing.Size(177, 17);
+            this.Cb_Abstract.Size = new System.Drawing.Size(296, 17);
             this.Cb_Abstract.TabIndex = 3;
-            this.Cb_Abstract.Text = "Create abstract from first section";
+            this.Cb_Abstract.Text = "Create abstract from first section (only for multiple tex files)";
             this.Cb_Abstract.UseVisualStyleBackColor = true;
             this.Cb_Abstract.CheckedChanged += new System.EventHandler(this.Cb_Abstract_CheckedChanged);
             // 
